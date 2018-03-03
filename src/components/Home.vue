@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <h1 class="no-margin-bottom">All Games {{msg}} <button class="btn btn-primary" @click="createNewGame">New Game</button></h1>
+      <h1 class="no-margin-bottom">All Games <button class="btn btn-primary" @click="createNewGame">New Game</button></h1>
       <blockquote class="no-margin-top">*Data is stored in localStorage</blockquote>
       <div class="columns">
         <div class="column col-4 col-lg-4 col-md-4 col-sm-12 col-xs-12"
@@ -45,7 +45,6 @@ export default {
   data () {
     var _gameIds = Vue.getGameIds().slice(0)
     return {
-      msg: 'Welcome to Rotten Tomatoe ',
       gameIds: _gameIds
     }
   }
