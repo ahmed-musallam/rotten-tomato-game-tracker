@@ -18,13 +18,13 @@
           <td v-for="(player, playerIndex) in game.players" :key="playerIndex">
             <div class="view" v-if="!isEdit(playerIndex,movieIndex)">
               <input class="form-input score" disabled type="text" :value="player.guesses[movieIndex]"/>
-              <button class="btn btn-link btn-md" @click="editScore(playerIndex, movieIndex, $event)">
+              <button class="btn btn-link btn-md tooltip tooltip-right" data-tooltip="Edit" @click="editScore(playerIndex, movieIndex, $event)">
                 <i class="icon icon-edit"></i>
               </button>
             </div>
             <div class="edit" v-if="isEdit(playerIndex,movieIndex)">
               <input class="form-input score" type="number" min='0' max='100' :value="player.guesses[movieIndex]"/>
-              <button class="btn btn-link btn-md" @click="saveScore(playerIndex, movieIndex, $event)">
+              <button class="btn btn-link btn-md tooltip tooltip-right" data-tooltip="Save" @click="saveScore(playerIndex, movieIndex, $event)">
                 <i class="icon icon-check"></i>
               </button>
             </div>
@@ -114,7 +114,6 @@ export default {
     }
   },
   data () {
-    console.log(this._game)
     return {
       game: this._game,
       editTracker: this.getEditTracker(),

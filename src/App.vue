@@ -8,7 +8,9 @@
             <a class="btn btn-link" href="https://github.com/ahmed-musallam/rotten-tomato-game-tracker">source code</a>
           </section>
         </nav>
-        <router-view/>
+        <transition name="fade">
+          <router-view/>
+        </transition>
     </div>
     <div class="footer"> Made with <a href="https://vuejs.org/">Vue</a>+<a href="https://picturepan2.github.io/spectre/">Spectre.css</a> by Ahmed Musallam </div>
   </div>
@@ -23,6 +25,16 @@ export default {
 <style>
 @import '../node_modules/spectre.css/dist/spectre.min.css';
 @import '../node_modules/spectre.css/dist/spectre-icons.min.css';
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  height: 0px;
+  width:0px;
+  overflow: hidden;
+}
 
 .main {
     min-height: calc(100vh - 80px);

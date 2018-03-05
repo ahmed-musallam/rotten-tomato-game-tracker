@@ -3,12 +3,13 @@
     <div class="container">
       <h1 class="no-margin-bottom">All Games <button class="btn btn-primary" v-if="gameIds.length" @click="createNewGame">New Game</button></h1>
       <blockquote class="no-margin-top">*All data is stored in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage/LocalStorage">LocalStorage</a></blockquote>
-      <div class="columns" v-if="gameIds.length">
-        <div class="column col-4 col-lg-4 col-md-6 col-sm-12 col-xs-12"
-            v-for="(gameId, gameIndex) in gameIds" :key="gameIndex">
+         <transition-group name="list" tag="div" class="columns" v-if="gameIds.length">
+        <div class="column col-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 list-item"
+            v-for="gameId in gameIds" :key="gameId">
           <game-card class="m-1" :gameId="gameId" v-on:removegame="handleRemoveGame"></game-card>
         </div>
-      </div>
+        </transition-group>
+
       <div class="empty" v-if="!gameIds.length">
         <div class="empty-icon">
           <span class="icon emoji">😞</span>
@@ -29,10 +30,18 @@
 .no-margin-top {
   margin-top: 0;
 }
-
 .emoji {
   text-indent: initial;
   font-size: 3em;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 0.5s;
+}
+.list-enter, .list-leave-to{
+  opacity: 0;
+  width: 0px;
+  max-height: 224px;
+  overflow: hidden;
 }
 </style>
 
