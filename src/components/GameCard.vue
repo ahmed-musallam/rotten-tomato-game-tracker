@@ -22,7 +22,7 @@
   </div>
   <div class="card-footer">
     <router-link class="btn btn-primary" v-bind:to="route">Go to Game</router-link>
-    <button class="btn" @click="removeGame">Delete Game</button>
+    <button class="btn" @click="removeGame">Delete  Game</button>
   </div>
 </div>
 </template>

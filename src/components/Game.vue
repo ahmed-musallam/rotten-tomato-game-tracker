@@ -3,7 +3,7 @@
     <h1>Game on!</h1>
     <button class="btn btn-primary" @click="playerModalActive = true">Add Player</button>
     <button class="btn btn-primary" @click="movieModalActive = true">Add Movie</button>
-    <table class="table table-striped table-hover" v-if="game.players || game.movies">
+    <table class="table table-striped table-hover" v-if="(game.players && game.players.length) || (game.movies && game.movies.length)">
       <thead>
         <tr>
         <th>Movie Name</th>
@@ -39,6 +39,12 @@
         </tr>
       </tbody>
     </table>
+    <div class="empty" v-if="!((game.players && game.players.length) || (game.movies && game.movies.length))">
+        <div class="empty-icon">
+          <span class="icon emoji">😞</span>
+        </div>
+        <p class="empty-title h5">No Movies or Player have been added, please add some!</p>
+    </div>
     <player-modal :active.sync='playerModalActive' v-on:addplayer="handleAddPlayer" v-on:close="playerModalActive = false"></player-modal>
     <movie-modal :active.sync='movieModalActive' v-on:addmovie="handleAddMovie" v-on:close="movieModalActive = false"></movie-modal>
 
@@ -108,6 +114,7 @@ export default {
     }
   },
   data () {
+    console.log(this._game)
     return {
       game: this._game,
       editTracker: this.getEditTracker(),

@@ -25,9 +25,10 @@ export default {
 @import '../node_modules/spectre.css/dist/spectre-icons.min.css';
 
 .main {
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - 80px);
 }
 .footer {
+  margin: 2.5em 0.5em 3em 0.5em;
   text-align: center;
   width: 100%;
 }
