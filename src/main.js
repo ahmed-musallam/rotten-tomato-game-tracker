@@ -19,5 +19,12 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  created: function () {
+    document.addEventListener('keydown', (event) => {
+      if (event.ctrlKey) {
+        this.$emit('ctrl+' + event.which) // emmit all shortcut events starting with ctrl
+      }
+    })
+  }
 })

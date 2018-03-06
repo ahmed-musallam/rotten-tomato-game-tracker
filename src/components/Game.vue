@@ -14,8 +14,8 @@
         </button>
       </div>
     </div>
-    <button class="btn btn-primary" @click="playerModalActive = true">Add Player</button>
-    <button class="btn btn-primary" @click="movieModalActive = true">Add Movie</button>
+    <button class="btn btn-primary tooltip" data-tooltip="ctrl+p" @click="playerModalActive = true">Add Player</button>
+    <button class="btn btn-primary tooltip"  data-tooltip="ctrl+m" @click="movieModalActive = true">Add Movie</button>
     <table class="table table-striped table-hover" v-if="(game.players && game.players.length) || (game.movies && game.movies.length)">
       <thead>
         <tr>
@@ -124,6 +124,16 @@ export default {
     Object.setPrototypeOf(this._game, Game.prototype)
     this._game.name = this._game.name ? this._game.name : 'Rotten Tomato Game'
     Vue.setGame(this.$route.params.id, this._game)
+  },
+  mounted () {
+    this.$root.$on('ctrl+80', event => { // ctrl+p shortcut
+      this.playerModalActive = true
+      this.movieModalActive = false
+    })
+    this.$root.$on('ctrl+77', event => { // ctrl+m shortcut
+      this.playerModalActive = false
+      this.movieModalActive = true
+    })
   },
   methods: {
     saveName: function ($event) {
