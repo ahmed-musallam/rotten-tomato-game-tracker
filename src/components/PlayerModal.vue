@@ -3,15 +3,16 @@
     <a class="modal-overlay" aria-label="Close" @click="close"></a>
     <div class="modal-container" role="document">
       <div class="modal-header">
-        <a  class="btn btn-clear float-right" aria-label="Close"></a>
+        <a  class="btn btn-clear float-right" aria-label="Close" @click="close"></a>
         <div class="modal-title h5">Modal title</div>
       </div>
       <div class="modal-body">
         <div class="content">
           <form v-on:submit.prevent="addPlayer">
-              <div class="form-group">
+              <div class="form-group" :class="{'has-error': !playerName}">
               <label class="form-label" for="player-name">Player Name</label>
-              <input class="form-input" type="text" id="player-name" placeholder="Player Name" v-model="playerName">
+              <input class="form-input" type="text" id="player-name" placeholder="Player Name" @input="trim" v-model="playerName">
+              <p class="form-input-hint" v-if="!playerName">Name cannot be empty</p>
               </div>
           </form>
         </div>
@@ -30,15 +31,22 @@ export default {
   props: {active: Boolean},
   data () {
     return {
-      playerName: ''
+      playerName: '',
+      playerNameTouched: false
     }
   },
   methods: {
+    trim () {
+      this.playerName = this.playerName.trim()
+    },
     close () {
       this.$emit('close')
       this.playerName = ''
+      this.playerNameValid = false
     },
     addPlayer () {
+      this.trim()
+      if (!this.playerName) return
       this.$emit('addplayer', {name: this.playerName})
       this.close()
     }
