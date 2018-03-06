@@ -11,7 +11,7 @@
           <form v-on:submit.prevent="addPlayer">
               <div class="form-group" :class="{'has-error': !playerName}">
               <label class="form-label" for="player-name">Player Name</label>
-              <input class="form-input" type="text" id="player-name" placeholder="Player Name" @input="trim" v-model="playerName">
+              <input class="form-input" type="text" id="player-name" placeholder="Player Name" ref="playerNameEl"  @input="trim" v-model="playerName">
               <p class="form-input-hint" v-if="!playerName">Name cannot be empty</p>
               </div>
           </form>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 export default {
   name: 'player-modal',
   props: {active: Boolean},
@@ -33,6 +34,13 @@ export default {
     return {
       playerName: '',
       playerNameTouched: false
+    }
+  },
+  watch: {
+    active (val) {
+      if (val) {
+        Vue.nextTick(() => this.$refs.playerNameEl.focus())
+      }
     }
   },
   methods: {
