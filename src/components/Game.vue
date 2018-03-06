@@ -18,13 +18,14 @@
           <td v-for="(player, playerIndex) in game.players" :key="playerIndex">
             <div class="view" v-if="!isEdit(playerIndex,movieIndex)">
               <input class="form-input score" disabled type="text" :value="player.guesses[movieIndex]"/>
-              <button class="btn btn-link btn-md tooltip tooltip-right" data-tooltip="Edit" @click="editScore(playerIndex, movieIndex, $event)">
+              <button class="btn btn-md tooltip" data-tooltip="Edit" @click="editScore(playerIndex, movieIndex, $event)">
                 <i class="icon icon-edit"></i>
               </button>
+              <div :class="{visible: !isEdit(playerIndex,movieIndex) && gotBonusScore(playerIndex, movieIndex)}" class="bonus tooltip" data-tooltip="5 point bonus!">🎉</div>
             </div>
             <div class="edit" v-if="isEdit(playerIndex,movieIndex)">
               <input class="form-input score" type="number" min='0' max='100' :value="player.guesses[movieIndex]"/>
-              <button class="btn btn-link btn-md tooltip tooltip-right" data-tooltip="Save" @click="saveScore(playerIndex, movieIndex, $event)">
+              <button class="btn btn-md tooltip" data-tooltip="Save" @click="saveScore(playerIndex, movieIndex, $event)">
                 <i class="icon icon-check"></i>
               </button>
             </div>
@@ -58,6 +59,19 @@
   .score {
     width: 4em;
     float:left;
+  }
+  .bonus {
+    visibility: hidden;
+    display: inline-block;
+    width: 0.8rem;
+    height: 1.8rem;
+    font-size: 0.8rem;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 1.8rem;
+  }
+  .bonus.visible {
+    visibility: visible;
   }
 </style>
 
@@ -111,6 +125,11 @@ export default {
         })
         return acc
       }, {})
+    },
+    gotBonusScore (playerIndex, movieIndex) {
+      var playerGuess = this.game.players ? this.game.players[playerIndex].guesses[movieIndex] : null
+      var movieScore = this.game.movies[movieIndex].score
+      return playerGuess === movieScore
     }
   },
   data () {

@@ -4,6 +4,7 @@ export default class {
     var movieScores = this.movies.map(movie => parseInt(movie.score))
     return playerGuesses.reduce(function (acc, guess, index) {
       var curentAbs = Math.abs(parseInt(movieScores[index]) - parseInt(guess))
+      curentAbs = curentAbs === 0 ? -5 : curentAbs // add a 5 point bonus when player guesses the score exactly
       return acc + curentAbs
     }, 0)
   }
