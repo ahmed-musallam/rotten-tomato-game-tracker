@@ -12,7 +12,7 @@
               <div class="form-group">
               <label class="form-label" for="player-name">Player Name</label>
               <input class="form-input" type="text" id="player-name" placeholder="Player Name" ref="playerNameEl" v-model="playerName">
-              <p class="form-input-hint" v-if="!playerName">Name cannot be empty</p>
+              <p class="form-input-hint">Name cannot be empty</p>
               </div>
           </form>
         </div>
