@@ -123,7 +123,7 @@ export default {
     this._game = Vue.getGame(this.$route.params.id) || Vue.setGame(this.$route.params.id, {})
     Object.setPrototypeOf(this._game, Game.prototype)
     this._game.name = this._game.name ? this._game.name : 'Rotten Tomato Game'
-    Vue.setGame(this.$route.params.id, this.game)
+    Vue.setGame(this.$route.params.id, this._game)
   },
   methods: {
     saveName: function ($event) {
