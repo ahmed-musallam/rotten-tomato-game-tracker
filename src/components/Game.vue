@@ -1,6 +1,19 @@
 <template>
   <div class="container">
-    <h1>Game on!</h1>
+    <div>
+      <div v-if="editNameActive" class="game-name-edit">
+        <input class="form-input" v-model="game.name" type="text"/>
+        <button class="btn btn-md tooltip" data-tooltip="Save" @click="saveName($event)">
+          <i class="icon icon-check"></i>
+        </button>
+      </div>
+      <div v-if="!editNameActive" class="game-name-view">
+        <h2>{{game.name}}</h2>
+        <button class="btn btn-md tooltip" v-if="!editNameActive" data-tooltip="Edit" @click="editName($event)">
+          <i class="icon icon-edit"></i>
+        </button>
+      </div>
+    </div>
     <button class="btn btn-primary" @click="playerModalActive = true">Add Player</button>
     <button class="btn btn-primary" @click="movieModalActive = true">Add Movie</button>
     <table class="table table-striped table-hover" v-if="(game.players && game.players.length) || (game.movies && game.movies.length)">
@@ -54,6 +67,31 @@
 </template>
 
 <style scoped>
+  .game-name-view {
+    float: left;
+    clear: both;
+    display: block;
+    width: 100%;
+    height: 3rem;
+  }
+  .game-name-view h2 {
+    float: left;
+    margin-right: 0.5rem;
+  }
+  .game-name-view input {
+    clear: right;
+  }
+  .game-name-edit {
+     height: 3rem;
+  }
+  .game-name-edit input {
+    width: 310px;
+    float: left;
+  }
+  .game-name-edit button {
+    float: left;
+    clear: right;
+  }
   input:disabled {
     opacity: 1;
   }
@@ -84,8 +122,20 @@ export default {
   beforeCreate () {
     this._game = Vue.getGame(this.$route.params.id) || Vue.setGame(this.$route.params.id, {})
     Object.setPrototypeOf(this._game, Game.prototype)
+    this._game.name = this._game.name ? this._game.name : 'Rotten Tomato Game'
+    Vue.setGame(this.$route.params.id, this.game)
   },
   methods: {
+    saveName: function ($event) {
+      this.editNameActive = false
+      var target = $event.target.tagName === 'button' ? $event.target : $event.target.parentElement
+      var newName = target.parentElement.querySelector('input').value
+      this.game.name = newName
+      this.update()
+    },
+    editName: function ($e) {
+      this.editNameActive = true
+    },
     handleAddPlayer: function (data) {
       this._game.addPlayer(data.name)
       this.update()
@@ -138,7 +188,8 @@ export default {
       game: this._game,
       editTracker: this.getEditTracker(),
       playerModalActive: false,
-      movieModalActive: false
+      movieModalActive: false,
+      editNameActive: false
     }
   }
 }

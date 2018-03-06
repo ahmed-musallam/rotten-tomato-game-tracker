@@ -1,7 +1,7 @@
 <template>
 <div class="card">
   <div class="card-header">
-    <div class="card-title h5">Rotten Tomatoes Game</div>
+    <div class="card-title h5">{{game.name ? game.name : 'Rotten Tomato Game'}}</div>
     <div class="card-subtitle text-gray">Game Id: {{gameId}}</div>
   </div>
   <div class="card-body">
