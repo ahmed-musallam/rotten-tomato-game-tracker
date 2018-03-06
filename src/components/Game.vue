@@ -28,6 +28,7 @@
               <button class="btn btn-md tooltip" data-tooltip="Save" @click="saveScore(playerIndex, movieIndex, $event)">
                 <i class="icon icon-check"></i>
               </button>
+              <div class="bonus">🎉</div><!-- adding the same element as in view to avoid elements shifting when editing -->
             </div>
           </td>
         </tr>
