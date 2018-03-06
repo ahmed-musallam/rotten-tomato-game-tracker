@@ -49,7 +49,7 @@
           <td>Total Score</td>
           <td></td>
           <td v-for="(player, playerIndex) in game.players" :key="playerIndex">
-              {{ game.calculateScore(playerIndex) }}
+              {{ game.calculateScore(playerIndex) }} <span class="tooltip" v-if="isWinning(playerIndex)" data-tooltip="Winner winner chicken dinner!">🏆</span>
           </td>
         </tr>
       </tbody>
@@ -163,9 +163,19 @@ export default {
       this.editTracker[name] = false
       var target = $event.target.tagName === 'button' ? $event.target : $event.target.parentElement
       var newScore = target.parentElement.querySelector('input').value
-
+      newScore = newScore || 0
       this.game.players[playerIndex].guesses[movieIndex] = newScore
       this.update()
+    },
+    isWinning (playerIndex) {
+      if (!this.game.players) return false
+      var shouldCalculate = this.game.players.map(p => {
+        return p.guesses.reduce((acc, guess) => acc || guess !== 0, false)
+      }).reduce((acc, guess) => acc && guess, true)
+      if (!shouldCalculate) return false
+      var scores = this.game.players.map((p, i) => this.game.calculateScore(i))
+      var min = Math.min(...scores)
+      return min === scores[playerIndex]
     },
     getEditTracker () {
       var g = this._game
