@@ -24,7 +24,7 @@
               <div :class="{visible: !isEdit(playerIndex,movieIndex) && gotBonusScore(playerIndex, movieIndex)}" class="bonus tooltip" data-tooltip="5 point bonus!">🎉</div>
             </div>
             <div class="edit" v-if="isEdit(playerIndex,movieIndex)">
-              <input class="form-input score" type="number" min='0' max='100' :value="player.guesses[movieIndex]"/>
+              <input class="form-input score" type="number" min='0' max='100' pattern="[0-9]*" inputmode="numeric" :value="player.guesses[movieIndex]"/>
               <button class="btn btn-md tooltip" data-tooltip="Save" @click="saveScore(playerIndex, movieIndex, $event)">
                 <i class="icon icon-check"></i>
               </button>

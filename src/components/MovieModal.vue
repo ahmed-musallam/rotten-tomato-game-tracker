@@ -15,7 +15,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label" for="movie-score">Movie Score</label>
-                <input class="form-input" type="number" min="0" max="100" id="movie-score" placeholder="Movie Score" v-model="movieScore">
+                <input class="form-input" type="number" min="0" max="100" pattern="[0-9]*" inputmode="numeric" id="movie-score" placeholder="Movie Score" v-model="movieScore">
               </div>
           </form>
         </div>
