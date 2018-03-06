@@ -9,7 +9,7 @@
       <div class="modal-body">
         <div class="content">
           <form>
-              <div class="form-group" :class="{'has-error': movieName === ''}">
+              <div class="form-group">
                 <label class="form-label" for="movie-name">Movie Name</label>
                 <input class="form-input" type="text" id="movie-name" @keyup.13="addMovie"
                   ref="movieNameEl" placeholder="Movie Name" v-model="movieName">
@@ -20,7 +20,7 @@
                 <input class="form-input" type="number" min="0" max="100" pattern="[0-9]*" inputmode="numeric"
                   id="movie-score" @keyup.13="addMovie" placeholder="Movie Score" v-model="movieScore"/>
                 <p v-if="!movieScore || parseInt(movieScore) > 100"
-                   class="form-input-hint">Enter a score larger than 0</p>
+                   class="form-input-hint">Enter a score between 0 and 100</p>
               </div>
           </form>
         </div>
