@@ -11,7 +11,7 @@
           <form v-on:submit.prevent="addPlayer">
               <div class="form-group" :class="{'has-error': !playerName}">
               <label class="form-label" for="player-name">Player Name</label>
-              <input class="form-input" type="text" id="player-name" placeholder="Player Name" ref="playerNameEl"  @input="trim" v-model="playerName">
+              <input class="form-input" type="text" id="player-name" placeholder="Player Name" ref="playerNameEl" v-model="playerName">
               <p class="form-input-hint" v-if="!playerName">Name cannot be empty</p>
               </div>
           </form>
