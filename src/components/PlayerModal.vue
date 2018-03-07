@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 export default {
   name: 'player-modal',
   props: {active: Boolean},
@@ -39,7 +38,7 @@ export default {
   watch: {
     active (val) {
       if (val) {
-        Vue.nextTick(() => this.$refs.playerNameEl.focus())
+        this.$nextTick(() => this.$refs.playerNameEl.focus())
       }
     }
   },

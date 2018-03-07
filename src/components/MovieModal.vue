@@ -33,14 +33,13 @@
 </template>
 
 <script>
-import Vue from 'vue'
 export default {
   name: 'movie-modal',
   props: {active: Boolean},
   watch: {
     active (val) {
       if (val) {
-        Vue.nextTick(() => this.$refs.movieNameEl.focus())
+        this.$nextTick(() => this.$refs.movieNameEl.focus())
       }
     }
   },
