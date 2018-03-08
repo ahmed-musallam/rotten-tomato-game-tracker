@@ -2,16 +2,16 @@
   <div class="container">
     <div>
       <div v-if="editNameActive" class="game-name-edit">
-        <input class="form-input" v-model="game.name" type="text"/>
-        <button class="btn btn-md tooltip" data-tooltip="Save" @click="saveName($event)">
+        <button class="btn btn-md btn-link tooltip" data-tooltip="Save" @click="saveName($event)">
           <i class="icon icon-check"></i>
         </button>
+        <input class="form-input" v-model="game.name" type="text"/>
       </div>
       <div v-if="!editNameActive" class="game-name-view">
-        <h2>{{game.name}}</h2>
-        <button class="btn btn-md tooltip" v-if="!editNameActive" data-tooltip="Edit" @click="editName($event)">
+        <button class="btn btn-md btn-link tooltip" v-if="!editNameActive" data-tooltip="Edit" @click="editName($event)">
           <i class="icon icon-edit"></i>
         </button>
+        <h2 class="text-ellipsis">{{game.name}}</h2>
       </div>
     </div>
     <button class="btn btn-primary tooltip" data-tooltip="ctrl+p" @click="playerModalActive = true">Add Player</button>
@@ -81,24 +81,28 @@
     vertical-align: middle;
   }
   .game-name-view {
+    height: 3rem;
     float: left;
     clear: both;
     display: block;
     width: 100%;
-    height: 3rem;
   }
   .game-name-view h2 {
     float: left;
-    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    margin-bottom: 0;
+    width: 77vw;
+    height: 2rem;
   }
-  .game-name-view input {
+  .game-name-view button {
+    float: left;
     clear: right;
   }
   .game-name-edit {
-     height: 3rem;
+    height: 3rem;
   }
   .game-name-edit input {
-    width: 310px;
+    width: 77vw;
     float: left;
   }
   .game-name-edit button {
@@ -135,7 +139,7 @@ export default {
   beforeCreate () {
     this._game = Vue.getGame(this.$route.params.id) || Vue.setGame(this.$route.params.id, {})
     Object.setPrototypeOf(this._game, Game.prototype)
-    this._game.name = this._game.name ? this._game.name : 'Rotten Tomato Game'
+    this._game.name = this._game.name ? this._game.name : 'Game ' + this.$route.params.id
     Vue.setGame(this.$route.params.id, this._game)
   },
   mounted () {
