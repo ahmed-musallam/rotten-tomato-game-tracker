@@ -21,6 +21,15 @@ export default class {
       })
     }
   }
+  deleteMovie (index) {
+    this.movies.splice(index, 1)
+    if (this.players) {
+      this.players.map(player => {
+        if (player.guesses) player.guesses.splice(index, 1)
+        return player
+      })
+    }
+  }
   addPlayer (name) {
     if (!name) return
     name = name[0].toUpperCase() + name.substring(1, name.length)
@@ -30,5 +39,8 @@ export default class {
       name: name,
       guesses: new Array(this.movies.length).fill(0)
     })
+  }
+  deletePlayer (index) {
+    this.players.splice(index, 1)
   }
 }

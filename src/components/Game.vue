@@ -21,12 +21,22 @@
         <tr>
         <th>Movie Name</th>
         <th>Movie's Score</th>
-        <th v-for="(player, playerIndex) in game.players" :key="playerIndex">{{player.name}}</th>
+        <th v-for="(player, playerIndex) in game.players" :key="playerIndex">
+          <button class="btn btn-sm btn-link tooltip" data-tooltip="Delete" @click="deletePlayer(playerIndex)">
+              <i class="icon icon-delete"></i>
+          </button>
+          <span class="vertical-middle">{{player.name}}</span>
+        </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(movie, movieIndex) in game.movies" :key="movieIndex">
-          <td>{{movie.name}}</td>
+          <td>
+            <button class="btn btn-sm btn-link tooltip" data-tooltip="Delete" @click="deleteMovie(movieIndex)">
+              <i class="icon icon-delete"></i>
+            </button>
+            <span class="vertical-middle">{{movie.name}}</span>
+          </td>
           <td>{{movie.score}}</td>
           <td v-for="(player, playerIndex) in game.players" :key="playerIndex">
             <div class="view" v-if="!isEdit(playerIndex,movieIndex)">
@@ -67,6 +77,9 @@
 </template>
 
 <style scoped>
+  .vertical-middle {
+    vertical-align: middle;
+  }
   .game-name-view {
     float: left;
     clear: both;
@@ -154,9 +167,17 @@ export default {
       this._game.addMovie(data.name, data.score)
       this.update()
     },
+    deleteMovie: function (index) {
+      this._game.deleteMovie(index)
+      this.update()
+    },
+    deletePlayer: function (index) {
+      this._game.deletePlayer(index)
+      this.update()
+    },
     update: function () {
-      Vue.setGame(this.$route.params.id, this.game)
-      this.editTracker = this.getEditTracker()
+      Vue.setGame(this.$route.params.id, this.game) // neccessary for Vue change detection
+      this.editTracker = this.getEditTracker() // update edit references
     },
     isEdit: function (playerIndex, movieIndex) {
       return this.editTracker[this.getEditName(playerIndex, movieIndex)]
